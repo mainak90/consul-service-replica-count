@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 	"reflect"
@@ -40,31 +39,37 @@ usage call:  ./haproxy-slot-calculator <servicename>
 
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
-		fmt.Println("10")
-		log.Fatal(err)
+		fmt.Fprintln(os.Stdout, fmt.Sprintf("10"))
+		fmt.Fprintln(os.Stderr, fmt.Sprintf("%s", err))
+		os.Exit(1)
 	}
 	res, err := spaceClient.Do(req)
 	if err != nil {
-		fmt.Println("10")
-		log.Fatal(err)
+		fmt.Fprintln(os.Stdout, fmt.Sprintf("10"))
+		fmt.Fprintln(os.Stderr, fmt.Sprintf("%s", err))
+		os.Exit(1)
 	}
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
-		fmt.Println("10")
-		log.Fatal(err)
+		fmt.Fprintln(os.Stdout, fmt.Sprintf("10"))
+		fmt.Fprintln(os.Stderr, fmt.Sprintf("%s", err))
+		os.Exit(1)
 	}
 	var lAnything []map[string]interface{}
 	err = json.Unmarshal(body, &lAnything)
 	if err != nil {
-		fmt.Println("10")
-		log.Fatal(err)
+		fmt.Fprintln(os.Stdout, fmt.Sprintf("10"))
+		fmt.Fprintln(os.Stderr, fmt.Sprintf("%s", err))
+		os.Exit(1)
 	}
 	finalVal := strconv.Itoa(len(lAnything) * 2)
 	iszero := IsZeroOfUnderlyingType(finalVal)
 	if (iszero) {
-		fmt.Println("10")
+		fmt.Fprintln(os.Stdout, fmt.Sprintf("10"))
+		os.Exit(0)
 	} else {
-		fmt.Println(finalVal)
+		fmt.Fprintln(os.Stdout, fmt.Sprintf("%s", finalVal))
+		os.Exit(0)
 	}
 }
 
