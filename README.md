@@ -19,6 +19,14 @@ Here `10` is the number of hardcoded slots allocated to this backend. If you nee
 running replicas of your service and then return that `(count-of-replicas * 2)` as your slot count for each backend. You can think of 
 using this plugin.
 
+## Installation
+```
+cd <your-target-dir>
+git clone https://github.com/mainak90/consul-service-replica-count.git
+cd consul-service-replica-count/
+make build
+```
+
 ## Usage
 
 ```bash
