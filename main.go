@@ -13,21 +13,6 @@ import (
 	"time"
 )
 
-package main
-
-import (
-"encoding/json"
-"fmt"
-"io/ioutil"
-"log"
-"net/http"
-"os"
-"reflect"
-"strconv"
-"strings"
-"time"
-)
-
 func main() {
 	version := "1.0.0"
 	usage := `** Haproxy consul backend slot plugin **
