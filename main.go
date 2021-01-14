@@ -20,13 +20,13 @@ usage call:  ./haproxy-slot-calculator <servicename>
 `
 
 	if len(os.Args) < 2 {
-		fmt.Println(usage)
+		fmt.Fprintln(os.Stderr, fmt.Sprintf("%s", usage))
 		os.Exit(1)
 	}
 
 	if os.Args[1] == "-version" {
-		fmt.Println(version)
-		os.Exit(0)
+		fmt.Fprintln(os.Stderr, fmt.Sprintf("%s", version))
+		os.Exit(1)
 	}
 
 	env_var := os.Getenv("CONSUL_TEMPLATE_OPTS")
