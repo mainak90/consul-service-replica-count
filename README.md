@@ -20,6 +20,8 @@ running replicas of your service and then return that `(count-of-replicas * 2)` 
 using this plugin.
 
 ## Usage
+Please ensure that this env variable `CONSUL_TEMPLATE_OPTS` is set on the host/container running the consul-template/plugin.
+The value should be `CONSUL_TEMPLATE_OPTS=" --addr=<consul-agent/server-ip>:<port>"`
 
 ```bash
 service-replica-count <version/service-name>
