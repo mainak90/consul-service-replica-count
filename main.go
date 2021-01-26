@@ -12,11 +12,6 @@ import (
 	"time"
 )
 
-type Service struct {
-	Name string `json:"name"`
-	Count string `json:"count"`
-}
-
 
 func main() {
 	version := "1.0.0"
