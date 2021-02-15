@@ -44,52 +44,11 @@ usage call:  ./haproxy-slot-calculator <servicename>
 }
 
 func PersistedCounter(servicename string, len int) string {
-	result := make(map[string]string)
-	servicesPath,ok := os.LookupEnv("JSON_PATH")
-	if !ok {
-		servicesPath = "/etc/consul-template/services.json"
-	}
-	if _, err := os.Stat(servicesPath); os.IsNotExist(err) {
-		os.Create(servicesPath)
-	}
 	var strlen string
 	if len < 5 {
 		strlen = strconv.Itoa(5)
 	} else {
 		strlen = strconv.Itoa(20)
-	}
-	jsonFile, err := os.Open(servicesPath)
-	// if we os.Open returns an error then handle it
-	if err != nil {
-		return "5"
-	}
-	defer jsonFile.Close()
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-	json.Unmarshal([]byte(byteValue), &result)
-	if _, ok := result[servicename]; ok {
-		if (result[servicename] == strlen || result[servicename] == "20") {
-			return result[servicename]
-		} else {
-			result[servicename] = strlen
-			dataBytes, err := json.Marshal(result)
-			if err != nil {
-				return "5"
-			}
-			err = ioutil.WriteFile(servicesPath, dataBytes, 0777)
-			if err != nil {
-				return "5"
-			}
-			return strlen
-		}
-	}
-	result[servicename] = strlen
-	dataBytes, err := json.Marshal(result)
-	if err != nil {
-		return "5"
-	}
-	err = ioutil.WriteFile(servicesPath, dataBytes, 0777)
-	if err != nil {
-		return "5"
 	}
 	return strlen
 }
