@@ -13,7 +13,6 @@ import (
 
 
 func main() {
-	version := "1.0.0"
 	usage := `** Haproxy consul backend slot plugin **
 This plugin outputs the length of the servers in each backend * 2
 usage call:  ./haproxy-slot-calculator <servicename>
@@ -21,11 +20,6 @@ usage call:  ./haproxy-slot-calculator <servicename>
 
 	if len(os.Args) < 2 {
 		fmt.Fprintln(os.Stderr, fmt.Sprintf("%s", usage))
-		os.Exit(1)
-	}
-
-	if os.Args[1] == "-version" {
-		fmt.Fprintln(os.Stderr, fmt.Sprintf("%s", version))
 		os.Exit(1)
 	}
 
@@ -37,8 +31,7 @@ usage call:  ./haproxy-slot-calculator <servicename>
 	serviceResponse, err := request(consul_host, os.Args[1])
 	if err != nil {
 		fmt.Fprintln(os.Stdout, fmt.Sprintf(defaultResponse))
-		fmt.Fprintln(os.Stderr, fmt.Sprintf("%s", err))
-		os.Exit(1)
+		os.Exit(0)
 	}
 	if !isRenderable(serviceResponse, clustername) {
 		fmt.Fprintln(os.Stdout, fmt.Sprintf(""))
