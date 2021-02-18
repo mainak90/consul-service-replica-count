@@ -77,13 +77,16 @@ func request(host string, service string) ([]map[string]interface{}, error) {
 }
 
 func isRenderable(servicedef []map[string]interface{}, clustername string) bool {
+	clusterarray := strings.Split(clustername, ",")
 	tagmap := servicedef[0]["ServiceTags"]
 	tagstring := fmt.Sprintf("%v", tagmap)
 	tagtrim := strings.Trim(strings.Trim(tagstring, "["), "]")
 	tagslice := strings.Split(tagtrim, " ")
 	for _, v := range tagslice {
-		if v == clustername {
-			return true
+		for _, l := range clusterarray {
+			if v == strings.TrimSpace(l) {
+				return true
+			}
 		}
 	}
 	return false
